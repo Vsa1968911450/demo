@@ -19,7 +19,6 @@ import './components/global.less'
 import { Dialog } from '@/components'
 import { Button, Form, Cell, CellGroup, Field, Uploader, Icon, NavBar, DropdownMenu, DropdownItem, ActionSheet, RadioGroup, Radio, Image, Area, Popup } from 'vant'
 import '@/assets/iconfont/iconfont.css'
-
 Vue.use(Popup)
 Vue.use(Area)
 Vue.use(Image)

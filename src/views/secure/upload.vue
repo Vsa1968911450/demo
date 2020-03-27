@@ -5,76 +5,85 @@
       left-text="返回"
       left-arrow
       @click-left="onClickLeft" />
-    <div>
-      <van-field
-        v-model="tel"
-        type="tel"
-        label="上报人姓名"
-        placeholder="请输入姓名" />
-      <van-field
-        v-model="tel"
-        type="tel"
-        label="手机号码"
-        placeholder="请输入手机号码" />
-      <van-field
-        @click="showPopup()"
-        label="选择地区"
-        :placeholder="location"
-        is-link></van-field>
-      <van-popup
-        v-model="showone"
-        position="bottom"
-        :style="{ height: '40%' }">
-        <van-area
-          :area-list="areaList"
-          @cancel="cancelT()"
-          @confirm="onConfirm"
-          @change="change"
-          ref="area" />
-      </van-popup>
-      <van-field
-        v-model="detaillocation"
-        rows="2"
-        autosize
-        label="详细地址"
-        type="textarea"
-        maxlength="50"
-        placeholder="街道门牌信息"
-        show-word-limit />
-    </div>
-    <div style="margin-top:10px">
-      <van-field
-        v-model="addmessage"
-        rows="2"
-        autosize
-        label="备注信息"
-        type="textarea"
-        maxlength="50"
-        placeholder="请输入备注信息"
-        show-word-limit />
-    </div>
-    <div style="margin-top:10px">
-      <van-field
-        v-model="yzm"
-        center
-        class="mll"
-        label="验证码">
-        <template #button>
-          <div @click="refreshCode()">
-            <identify :identifyCode="identifyCode" />
-          </div>
-        </template>
-      </van-field>
-    </div>
-    <div>
-      <van-cell-group title="隐患图片">
-        <van-cell >
-          <van-uploader
-            v-model="fileListone"
-            multiple />
-        </van-cell>
-      </van-cell-group>
-    </div>
+    <van-form
+      validate-first
+      @failed="onFailed">
+      <div>
+        <van-field
+          v-model="name"
+          type="text"
+          label="用户姓名:"
+          :rules="[{ validator:checkName, message: '请输入正确内容' }]"
+          placeholder="请输入姓名" />
+        <van-field
+          v-model="number"
+          type="tel"
+          label="手机号码:"
+          :rules="[{ validator:checkNumber, message: '请输入正确内容' }]"
+          placeholder="请输入手机号码" />
+        <van-field
+          @click="showPopup()"
+          label="选择地区:"
+          :placeholder="location"
+          is-link></van-field>
+        <van-popup
+          v-model="showone"
+          position="bottom"
+          :style="{ height: '40%' }">
+          <van-area
+            :area-list="areaList"
+            @cancel="cancelT()"
+            @confirm="onConfirm"
+            @change="change"
+            ref="area" />
+        </van-popup>
+        <van-field
+          v-model="detaillocation"
+          rows="2"
+          autosize
+          label="详细地址:"
+          type="textarea"
+          maxlength="50"
+          placeholder="街道门牌信息"
+          show-word-limit />
+      </div>
+      <div style="margin-top:10px">
+        <van-field
+          v-model="addmessage"
+          rows="2"
+          autosize
+          label="备注信息"
+          type="textarea"
+          maxlength="50"
+          placeholder="请输入备注信息"
+          show-word-limit />
+      </div>
+      <div style="margin-top:10px">
+        <van-field
+          v-model="yzm"
+          maxlength="4"
+          center
+          :rules="[{ validator:checkYzm, message: '请输入正确的验证码' }]"
+          class="mll"
+          label="验证码">
+          <template #button>
+            <div @click="refreshCode()">
+              <identify :identifyCode="identifyCode" />
+            </div>
+          </template>
+        </van-field>
+      </div>
+      <div>
+        <van-cell-group title="隐患图片">
+          <van-cell>
+            <van-uploader
+              v-model="fileListone"
+              multiple />
+          </van-cell>
+        </van-cell-group>
+      </div>
+    </van-form>
+
     <van-button
       type="primary"
       size="small"
@@ -90,10 +99,11 @@ import { Dialog } from 'vant'
 export default {
   data () {
     return {
-        identifyCodes: '1234567890',
+      number: '',
+      identifyCodes: '1234567890',
       identifyCode: '',
-        yzm:'',
-        fileListone:[],
+      yzm: '',
+      fileListone: [],
       fileList: [],
       addmessage: '',
       laordetail: '',
@@ -105,7 +115,7 @@ export default {
       columnsPlaceholder: ['请选择', '请选择', '请选择'],
       areaList: AreaList,
       showone: false,
-      tel: '',
+      name: '',
       show: false,
       radio: '1',
       items: [{ txt: 121212121 }, { txt: 211 }],
@@ -113,19 +123,38 @@ export default {
     }
   },
   created () {},
-  mounted(){
-       this.identifyCode = ''
+  mounted () {
+    this.identifyCode = ''
     this.makeCode(this.identifyCodes, 4)
+    console.log(this.identifyCode)
   },
   components: {
     [Dialog.Component.name]: Dialog.Component,
     identify
   },
   methods: {
-       randomNum (min, max) {
+      checkYzm(val){
+          if(val != this.identifyCode) {
+              return false
+          }
+      },
+    checkName (val) {
+      if (val != '') {
+        return /^[\u4E00-\u9FA5A-Za-z0-9]+$/.test(val)
+      }
+    },
+    checkNumber (val) {
+      if (val != '') {
+        return /^1[34578]\d{9}$/.test(val)
+      }
+    },
+    onFailed (errorInfo) {
+      console.log('failed', errorInfo)
+    },
+    randomNum (min, max) {
       return Math.floor(Math.random() * (max - min) + min)
     },
-       refreshCode () {
+    refreshCode () {
       this.identifyCode = ''
       this.makeCode(this.identifyCodes, 4)
     },

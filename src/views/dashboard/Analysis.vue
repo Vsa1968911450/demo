@@ -16,6 +16,7 @@
         <van-button
           size="small"
           type="primary"
+          to="change"
           style="font-size:12px">修改密码</van-button>
       </template>
     </van-field>

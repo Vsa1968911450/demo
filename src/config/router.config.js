@@ -39,6 +39,12 @@ export const asyncRouterMap = [
             meta: { title: '监控页（外部）', target: '_blank' }
           },
           {
+            path: 'change',
+            name: 'change',
+            component: () => import('@/views/dashboard/change'),
+            meta: { title: '监控页（外部）', target: '_blank' }
+          },
+          {
             path: 'workplace',
             name: 'Workplace',
             component: () => import('@/views/dashboard/Workplace'),
