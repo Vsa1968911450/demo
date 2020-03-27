@@ -1,5 +1,6 @@
 <template>
-  <transition name="showHeader">
+  <div></div>
+  <!-- <transition name="showHeader">
     <div v-if="visible" class="header-animat">
       <a-layout-header
         v-if="visible"
@@ -22,7 +23,7 @@
         </div>
       </a-layout-header>
     </div>
-  </transition>
+  </transition> -->
 </template>
 
 <script>

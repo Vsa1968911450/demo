@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider
+  <!-- <a-layout-sider
     :class="['sider', isDesktop() ? null : 'shadow', theme, fixSiderbar ? 'ant-fixed-sidemenu' : null ]"
     width="256px"
     :collapsible="collapsible"
@@ -13,8 +13,8 @@
       :mode="mode"
       @select="onSelect"
       style="padding: 16px 0px;"></s-menu>
-  </a-layout-sider>
-
+  </a-layout-sider> -->
+  <div></div>
 </template>
 
 <script>

@@ -1,5 +1,11 @@
 <template>
-  <div></div>
+  <div>
+    <img style="width:60%;margin-left:20%" src="../../assets/ok.png" alt="">
+    <p style="font-size:32px;font-weight:bold;margin-left:30%;margin-top:20px">
+      操作成功
+    </p>
+    <van-button type="default" block>返回</van-button>
+  </div>
 </template>
 
 <script>

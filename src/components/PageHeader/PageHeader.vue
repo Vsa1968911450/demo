@@ -1,5 +1,6 @@
 <template>
-  <div class="page-header">
+  <div>
+  <!-- <div class="page-header">
     <div class="page-header-index-wide">
       <s-breadcrumb />
       <div class="detail">
@@ -27,7 +28,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
