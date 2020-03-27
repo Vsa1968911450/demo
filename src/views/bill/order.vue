@@ -8,7 +8,7 @@
     <van-cell
       title="客户编号"
       @click="dialogOpen()"
-      :value="txt"
+      v-model="txt"
       class=" ml myfont"
       is-link />
     <van-dialog v-model="show" title="选择客户号">
@@ -25,34 +25,49 @@
       </div>
     </van-dialog>
     <div style="margin-top:10px">
-      <van-cell
-        title="客户姓名:"
-        :value="custName"
-        class=" ml myfont"/>
-      <van-cell
-        title="客户地址:"
-        :value="custName"
-        class=" ml myfont"/>
-      <van-cell
-        title="最近抄表日期:"
-        :value="custName"
-        class=" ml myfont"/>
-      <van-cell
-        title="上次示数:"
-        :value="custName"
-        class=" ml myfont"/>
+      <van-field
+        v-model="name"
+        type="text"
+        label="客户姓名:"
+        placeholder="请输入姓名" />
+      <van-field
+        v-model="name"
+        type="text"
+        label="客户地址:"
+        placeholder="请输入客户地址" />
+      <van-field
+        readonly
+        clickable
+        name="calendar"
+        :value="value"
+        label="日期："
+        placeholder="点击选择日期"
+        @click="showCalendar = true"
+      />
+      <van-calendar v-model="showCalendar" @confirm="onConfirm" />
+      <van-field
+        v-model="name"
+        type="text"
+        label="上次示数:"
+        placeholder="请输入上次示数" />
     </div>
     <div>
       <van-cell-group title="本次用量">
-        <van-cell
-          title="客户姓名"
-          class="ml myfont" />
-        <van-cell
-          title="自报示数"
-          class="ml myfont" />
-        <van-cell
-          title="本次用量"
-          class="ml myfont"/>
+        <van-field
+          v-model="name"
+          type="text"
+          label="客户姓名:"
+          placeholder="请输入客户姓名" />
+        <van-field
+          v-model="name"
+          type="text"
+          label="自报示数:"
+          placeholder="请输入自报示数" />
+        <van-field
+          v-model="name"
+          type="text"
+          label="本次用量:"
+          placeholder="请输入本次用量" />
       </van-cell-group>
     </div>
     <div>
@@ -71,6 +86,9 @@ import { Dialog } from 'vant'
 export default {
   data () {
     return {
+         value: '',
+      showCalendar: false,
+        name: '',
         custName: '',
         show: false,
         radio: '1',
@@ -87,6 +105,11 @@ export default {
     [Dialog.Component.name]: Dialog.Component
   },
   methods: {
+       onConfirm (date) {
+           console.log(date.getFullYear())
+      this.value = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+      this.showCalendar = false
+    },
     onClickLeft () {
       this.$router.back(-1)
     },

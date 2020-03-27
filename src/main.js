@@ -17,8 +17,10 @@ import './permission' // permission control
 import './utils/filter' // global filter
 import './components/global.less'
 import { Dialog } from '@/components'
-import { Button, Form, Cell, CellGroup, Field, Uploader, Icon, NavBar, DropdownMenu, DropdownItem, ActionSheet, RadioGroup, Radio, Image, Area, Popup } from 'vant'
+import { Button, Form, Cell, CellGroup, Field, Uploader, Icon, NavBar, DropdownMenu, DropdownItem, ActionSheet, RadioGroup, Radio, Image, Area, Popup, Calendar } from 'vant'
 import '@/assets/iconfont/iconfont.css'
+
+Vue.use(Calendar)
 Vue.use(Popup)
 Vue.use(Area)
 Vue.use(Image)
