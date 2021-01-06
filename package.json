@@ -17,7 +17,7 @@
     "@babel/preset-env": "^7.9.0",
     "@ionic/vue": "0.0.4",
     "ant-design-vue": "1.5.0-beta.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "core-js": "^3.1.2",
     "enquire.js": "^2.1.6",
     "ionicons": "^4.5.9-1",
